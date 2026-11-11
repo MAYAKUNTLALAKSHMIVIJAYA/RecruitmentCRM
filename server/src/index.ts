@@ -3,6 +3,7 @@ import cors from 'cors';
 import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
+import fs from 'fs';
 import { config } from './config/config';
 import { connectDB } from './config/db';
 import { initSocket } from './services/socketService';
@@ -63,7 +64,27 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/portal', portalRoutes);
 app.use('/api', analyticsRoutes);
 
-// 404 Handler
+// In production or single-service deployment, serve the built React frontend
+const possibleClientPaths = [
+  path.join(process.cwd(), 'client', 'dist'),
+  path.join(process.cwd(), '../client', 'dist'),
+  path.join(__dirname, '../../client', 'dist'),
+];
+const clientDistPath = possibleClientPaths.find((p) => fs.existsSync(p));
+
+if (clientDistPath) {
+  console.log(`[Static] Serving frontend static assets from: ${clientDistPath}`);
+  app.use(express.static(clientDistPath));
+
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
+
+// 404 Handler for unmatched API routes
 app.use((_req, res) => {
   res.status(404).json({ success: false, message: 'API endpoint not found.' });
 });
