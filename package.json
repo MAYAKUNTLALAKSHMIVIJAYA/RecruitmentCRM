@@ -1,0 +1,28 @@
+{
+  "name": "recruitflow-crm",
+  "version": "1.0.0",
+  "description": "RecruitFlow CRM - Smart Candidate Submission, Feedback & Follow-up Management System",
+  "scripts": {
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "build": "cd server && npm run build && cd ../client && npm run build",
+    "start:server": "cd server && npm start",
+    "start:client": "cd client && npm run preview",
+    "start": "cd server && npm start"
+  },
+  "keywords": [
+    "recruitment",
+    "crm",
+    "candidate-management",
+    "followup-automation",
+    "react",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "RecruitFlow Team",
+  "license": "ISC"
+}
