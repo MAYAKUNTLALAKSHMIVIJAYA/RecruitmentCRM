@@ -22,6 +22,15 @@ export const seedDatabase = async () => {
   const hash = (pw: string) => bcrypt.hash(pw, salt);
 
   // === USERS ===
+  const akhilAdmin = await User.create({
+    name: 'Akhil',
+    email: 'akhil@recruitflow.com',
+    password: await hash('Admin@123'),
+    role: 'admin',
+    designation: 'Managing Director & Lead Administrator',
+    phone: '+91 98765 43210',
+  });
+
   const adminUser = await User.create({
     name: 'Riya Kapoor',
     email: 'admin@recruitflow.com',

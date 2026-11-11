@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 export const LoginPage = () => {
   const { login, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: 'ananya@recruitflow.com', password: 'Recruiter@123' });
+  const [form, setForm] = useState({ email: 'akhil@recruitflow.com', password: 'Admin@123' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -14,7 +14,8 @@ export const LoginPage = () => {
   if (!isLoading && isAuthenticated) return <Navigate to="/dashboard" replace />;
 
   const demoAccounts = [
-    { label: 'Admin', email: 'admin@recruitflow.com', password: 'Admin@123', color: 'bg-purple-100 text-purple-700', role: 'Full Access' },
+    { label: 'Admin (Akhil)', email: 'akhil@recruitflow.com', password: 'Admin@123', color: 'bg-purple-100 text-purple-700', role: 'Lead Admin' },
+    { label: 'Admin (Riya)', email: 'admin@recruitflow.com', password: 'Admin@123', color: 'bg-purple-100 text-purple-700', role: 'Full Access' },
     { label: 'Recruiter (Ananya)', email: 'ananya@recruitflow.com', password: 'Recruiter@123', color: 'bg-indigo-100 text-indigo-700', role: 'Primary Demo User' },
     { label: 'Recruiter (Vikram)', email: 'vikram@recruitflow.com', password: 'Recruiter@123', color: 'bg-blue-100 text-blue-700', role: 'Secondary User' },
   ];

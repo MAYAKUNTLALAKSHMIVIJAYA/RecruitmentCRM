@@ -109,6 +109,23 @@ const bootstrap = async () => {
     console.log(`[Seed] Database already has ${userCount} users. Skipping seed.`);
   }
 
+  // Ensure Admin user Akhil exists
+  const existingAkhil = await User.findOne({ email: 'akhil@recruitflow.com' });
+  if (!existingAkhil) {
+    const bcrypt = (await import('bcryptjs')).default;
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash('Admin@123', salt);
+    await User.create({
+      name: 'Akhil',
+      email: 'akhil@recruitflow.com',
+      password: hashedPassword,
+      role: 'admin',
+      designation: 'Managing Director & Lead Administrator',
+      phone: '+91 98765 43210',
+    });
+    console.log('[Seed] Admin user Akhil created successfully (akhil@recruitflow.com / Admin@123)');
+  }
+
   setupCronJobs();
 
   httpServer.listen(config.port, () => {
